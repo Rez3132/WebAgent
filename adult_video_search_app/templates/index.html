@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-API Adult Video Search</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #6c5ce7;
+            --secondary-color: #a29bfe;
+            --dark-bg: #2d3436;
+            --card-bg: #ffffff;
+            --text-primary: #2d3436;
+            --text-secondary: #636e72;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.95) !important;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .container-main {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .search-form {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .form-control, .form-select {
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+            padding: 12px 16px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.2rem rgba(108, 92, 231, 0.25);
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            border-radius: 10px;
+            padding: 12px 24px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(108, 92, 231, 0.3);
+        }
+
+        .video-card {
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card {
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-img-top {
+            height: 200px;
+            object-fit: cover;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover .card-img-top {
+            transform: scale(1.05);
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+            height: 2.8rem;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .video-meta {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .video-meta .badge {
+            margin-right: 0.5rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .source-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 10;
+        }
+
+        .stats-container {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+
+        .api-checkbox {
+            margin-right: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .loading-spinner {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .age-warning {
+            background: linear-gradient(45deg, #ff6b6b, #ffa500);
+            color: white;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .keywords-tag {
+            background: #e9ecef;
+            color: #495057;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            margin-right: 4px;
+            margin-bottom: 4px;
+            display: inline-block;
+        }
+
+        @media (max-width: 768px) {
+            .container-main {
+                margin: 1rem;
+                padding: 1rem;
+            }
+            
+            .search-form {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="/">
+                <i class="fas fa-search"></i> Adult Video Search
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/health">API Status</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="container-main">
+            <!-- Age Warning -->
+            <div class="age-warning">
+                <i class="fas fa-exclamation-triangle"></i>
+                <strong>18+ Content Warning:</strong> This application searches adult content. 
+                By using this service, you confirm you are 18+ and comply with local laws.
+            </div>
+
+            <!-- Search Form -->
+            <div class="search-form">
+                <h2 class="text-center mb-4">
+                    <i class="fas fa-video"></i> Search Adult Videos Across Multiple Platforms
+                </h2>
+                
+                <form method="POST" id="searchForm">
+                    <div class="row g-3">
+                        <!-- Search Query -->
+                        <div class="col-md-6">
+                            <label for="query" class="form-label fw-bold">Search Keywords</label>
+                            <input type="text" name="query" id="query" class="form-control" 
+                                   placeholder="e.g., footjob wife, milf amateur" 
+                                   value="{{ query or 'footjob wife' }}">
+                        </div>
+
+                        <!-- Category -->
+                        <div class="col-md-3">
+                            <label for="category" class="form-label fw-bold">Category</label>
+                            <input type="text" name="category" id="category" class="form-control" 
+                                   placeholder="e.g., amateur, milf" 
+                                   value="{{ category or '' }}">
+                        </div>
+
+                        <!-- Sort By -->
+                        <div class="col-md-3">
+                            <label for="sort_by" class="form-label fw-bold">Sort By</label>
+                            <select name="sort_by" id="sort_by" class="form-select">
+                                <option value="views" {% if sort_by == 'views' %}selected{% endif %}>Most Views</option>
+                                <option value="rating" {% if sort_by == 'rating' %}selected{% endif %}>Highest Rated</option>
+                                <option value="added" {% if sort_by == 'added' %}selected{% endif %}>Newest</option>
+                                <option value="title" {% if sort_by == 'title' %}selected{% endif %}>Title A-Z</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- API Selection -->
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <label class="form-label fw-bold">Search Platforms</label>
+                            <div class="d-flex flex-wrap">
+                                <div class="form-check api-checkbox">
+                                    <input class="form-check-input" type="checkbox" name="apis" value="eporner" id="api_eporner"
+                                           {% if 'eporner' in selected_apis %}checked{% endif %}>
+                                    <label class="form-check-label" for="api_eporner">
+                                        <i class="fas fa-globe"></i> Eporner
+                                    </label>
+                                </div>
+                                <div class="form-check api-checkbox">
+                                    <input class="form-check-input" type="checkbox" name="apis" value="redgifs" id="api_redgifs"
+                                           {% if 'redgifs' in selected_apis %}checked{% endif %}>
+                                    <label class="form-check-label" for="api_redgifs">
+                                        <i class="fas fa-images"></i> RedGifs
+                                    </label>
+                                </div>
+                                <div class="form-check api-checkbox">
+                                    <input class="form-check-input" type="checkbox" name="apis" value="pornhub_demo" id="api_demo"
+                                           {% if 'pornhub_demo' in selected_apis %}checked{% endif %}>
+                                    <label class="form-check-label" for="api_demo">
+                                        <i class="fas fa-flask"></i> Demo API
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Search Button -->
+                    <div class="row mt-4">
+                        <div class="col-12 text-center">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-search"></i> Search Videos
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Loading Spinner -->
+            <div class="loading-spinner" id="loadingSpinner">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <p class="mt-2">Searching across multiple platforms...</p>
+            </div>
+
+            <!-- Search Statistics -->
+            {% if total_results is defined %}
+            <div class="stats-container">
+                <div class="row text-center">
+                    <div class="col-md-3">
+                        <h5 class="text-primary">{{ total_results }}</h5>
+                        <small class="text-muted">Total Results</small>
+                    </div>
+                    {% for api, count in api_stats.items() %}
+                    <div class="col-md-3">
+                        <h5 class="text-success">{{ count }}</h5>
+                        <small class="text-muted">{{ api.title() }}</small>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Video Results -->
+            {% if videos %}
+                <div class="row" id="videoResults">
+                    {% for video in videos %}
+                        <div class="col-lg-4 col-md-6 video-card">
+                            <div class="card position-relative">
+                                <!-- Source Badge -->
+                                <span class="badge bg-primary source-badge">{{ video.source }}</span>
+                                
+                                <!-- Thumbnail -->
+                                {% if video.thumbnail %}
+                                <img src="{{ video.thumbnail }}" class="card-img-top" 
+                                     alt="{{ video.title }}" 
+                                     onerror="this.src='https://via.placeholder.com/320x180?text=No+Image'">
+                                {% else %}
+                                <img src="https://via.placeholder.com/320x180?text=No+Image" 
+                                     class="card-img-top" alt="No thumbnail available">
+                                {% endif %}
+                                
+                                <div class="card-body">
+                                    <!-- Title -->
+                                    <h5 class="card-title">{{ video.title }}</h5>
+                                    
+                                    <!-- Video Metadata -->
+                                    <div class="video-meta">
+                                        <div class="mb-2">
+                                            <span class="badge bg-secondary">
+                                                <i class="fas fa-clock"></i> {{ video.duration }}
+                                            </span>
+                                            <span class="badge bg-info">
+                                                <i class="fas fa-eye"></i> {{ "{:,}".format(video.views) if video.views else 'N/A' }}
+                                            </span>
+                                            {% if video.rating %}
+                                            <span class="badge bg-warning">
+                                                <i class="fas fa-star"></i> {{ "%.1f"|format(video.rating) }}
+                                            </span>
+                                            {% endif %}
+                                        </div>
+                                        
+                                        <!-- Keywords -->
+                                        {% if video.keywords %}
+                                        <div class="mb-2">
+                                            {% for keyword in video.keywords.split(',')[:5] %}
+                                            <span class="keywords-tag">{{ keyword.strip() }}</span>
+                                            {% endfor %}
+                                        </div>
+                                        {% endif %}
+                                        
+                                        <!-- Added Date -->
+                                        {% if video.added %}
+                                        <small class="text-muted">
+                                            <i class="fas fa-calendar"></i> {{ video.added }}
+                                        </small>
+                                        {% endif %}
+                                    </div>
+                                    
+                                    <!-- Action Buttons -->
+                                    <div class="d-grid gap-2">
+                                        {% if video.url and video.url != '#' %}
+                                        <a href="{{ video.url }}" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+                                            <i class="fas fa-external-link-alt"></i> Watch Video
+                                        </a>
+                                        {% else %}
+                                        <button class="btn btn-secondary" disabled>
+                                            <i class="fas fa-ban"></i> Demo Content
+                                        </button>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="text-center py-5">
+                    <i class="fas fa-search fa-3x text-muted mb-3"></i>
+                    <h3 class="text-muted">No videos found</h3>
+                    <p class="text-muted">Try adjusting your search terms or selecting different platforms.</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="py-4 text-center text-white">
+        <div class="container">
+            <p class="mb-0">
+                <small>
+                    <i class="fas fa-exclamation-triangle"></i> 
+                    18+ Adult Content - Use Responsibly | 
+                    <a href="/health" class="text-white">API Status</a>
+                </small>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script>
+        // Show loading spinner on form submit
+        document.getElementById('searchForm').addEventListener('submit', function() {
+            document.getElementById('loadingSpinner').style.display = 'block';
+            document.getElementById('videoResults')?.style.setProperty('opacity', '0.5');
+        });
+
+        // Auto-check at least one API
+        document.addEventListener('DOMContentLoaded', function() {
+            const apiCheckboxes = document.querySelectorAll('input[name="apis"]');
+            const searchForm = document.getElementById('searchForm');
+            
+            searchForm.addEventListener('submit', function(e) {
+                const checkedApis = document.querySelectorAll('input[name="apis"]:checked');
+                if (checkedApis.length === 0) {
+                    e.preventDefault();
+                    alert('Please select at least one platform to search.');
+                    // Auto-check Eporner as default
+                    document.getElementById('api_eporner').checked = true;
+                }
+            });
+        });
+
+        // Lazy loading for images
+        if ('IntersectionObserver' in window) {
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.classList.add('loaded');
+                        observer.unobserve(img);
+                    }
+                });
+            });
+
+            document.querySelectorAll('.card-img-top').forEach(img => {
+                imageObserver.observe(img);
+            });
+        }
+    </script>
+</body>
+</html>
