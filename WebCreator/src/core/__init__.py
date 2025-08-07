@@ -1,0 +1,3 @@
+"""
+WebCreator Core Module
+"""

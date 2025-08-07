@@ -32,6 +32,7 @@ alt="Alibaba-NLP%2FWebAgent | Trendshift" style="width: 250px; height: 55px;" wi
 
 > 💥 💥 💥 Stay tuned for more updates! We are working on building native agentic model based on the Browser and more open-domain environments!
 
+- [**WebCreator**](WebCreator) (2024) - WebCreator: AI-Powered Website Generation Agent
 - [**WebShaper**](WebShaper) (Preprint 2025) - WebShaper: Agentically Data Synthesizing via Information-Seeking
   Formalization
 - [**WebSailor**](WebSailor) (Preprint 2025) - WebSailor: Navigating Super-human Reasoning for Web Agent
@@ -40,6 +41,7 @@ alt="Alibaba-NLP%2FWebAgent | Trendshift" style="width: 250px; height: 55px;" wi
 
 ## 📰 News and Updates
 
+- `2024.08.07` 🎨🎨🎨**WebCreator** - AI-powered website generation agent is now available! Generate amazing websites from simple descriptions.
 - `2025.08.07` 🔮🔮🔮**WebWatcher** is coming...
 - `2025.08.06` 🔥🔥🔥**WebSailor-7B** is [released](https://huggingface.co/Alibaba-NLP/WebSailor-7B).
 - `2025.07.22` 🔥🔥🔥We release **WebShaper**: Agentically Data Synthesizing via Information-Seeking Formalization.
