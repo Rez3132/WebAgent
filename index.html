@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nice Constructions & Building — Virtual Paint Preview</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <meta name="theme-color" content="#2E7D32" />
+  </head>
+  <body>
+    <header class="nc-header">
+      <div class="container header-inner">
+        <div class="brand">
+          <div class="logo">NCB</div>
+          <div class="brand-text">
+            <h1>Nice Constructions & Building</h1>
+            <p>Virtual Paint Preview</p>
+          </div>
+        </div>
+        <nav class="nav">
+          <a href="#upload">Upload</a>
+          <a href="#preview">Preview</a>
+          <a href="#palette">Palette</a>
+          <a href="#ai">AI Colors</a>
+          <a href="#services">Services</a>
+          <a href="#contact" class="cta">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <!-- Upload / Hero -->
+      <section id="upload" class="section hero">
+        <div class="container hero-inner">
+          <div class="hero-copy">
+            <h2>Visualize paint colors in your own space</h2>
+            <p>Upload a photo of your room or building exterior and try colors from our deluxe palette in real-time.</p>
+            <ul class="hero-bullets">
+              <li>Smart region selection</li>
+              <li>Trend-based AI recommendations</li>
+              <li>Eco-friendly paint options</li>
+            </ul>
+          </div>
+          <div class="upload-card" aria-label="Upload your photo">
+            <div id="dropzone" class="dropzone" tabindex="0">
+              <input id="fileInput" type="file" accept="image/*" hidden />
+              <div class="dz-content">
+                <div class="dz-icon">📷</div>
+                <h3>Drag & drop a photo here</h3>
+                <p>or</p>
+                <button id="browseBtn" class="btn primary">Browse files</button>
+                <p class="dz-hint">JPG, PNG up to 10 MB</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Preview Workspace -->
+      <section id="preview" class="section workspace">
+        <div class="container">
+          <div class="workspace-grid">
+            <div class="canvas-panel">
+              <div class="compare-wrapper">
+                <div class="canvas-stack">
+                  <canvas id="originalCanvas" aria-label="Original image"></canvas>
+                  <div id="compareOverlay" class="compare-overlay">
+                    <canvas id="resultCanvas" aria-label="Color preview image"></canvas>
+                  </div>
+                </div>
+                <input id="compareSlider" class="compare-slider" type="range" min="0" max="100" value="50" />
+              </div>
+              <div class="canvas-hints">
+                <p>Tip: Click on the area (e.g., a wall) you want to recolor. Then pick a color.</p>
+              </div>
+            </div>
+            <aside class="tools-panel">
+              <div class="card">
+                <h3>Selection</h3>
+                <label class="control">
+                  <span>Regions (K)</span>
+                  <input id="kInput" type="range" min="3" max="10" value="5" />
+                </label>
+                <label class="control">
+                  <span>Expand selection</span>
+                  <input id="toleranceInput" type="range" min="0" max="100" value="20" />
+                </label>
+                <div class="buttons-row">
+                  <button id="resegmentBtn" class="btn">Re-segment</button>
+                  <button id="resetSelectionBtn" class="btn ghost">Reset selection</button>
+                </div>
+              </div>
+              <div class="card">
+                <h3>Color Blend</h3>
+                <label class="control">
+                  <span>Strength</span>
+                  <input id="strengthInput" type="range" min="0" max="100" value="70" />
+                </label>
+                <div class="buttons-row">
+                  <button id="downloadBtn" class="btn secondary">Download Result</button>
+                </div>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <!-- Deluxe Palette -->
+      <section id="palette" class="section palette">
+        <div class="container">
+          <div class="section-header">
+            <h2>Deluxe Color Palette</h2>
+            <p>Professionally curated hues for interiors and exteriors.</p>
+          </div>
+          <div id="paletteGrid" class="palette-grid" role="list" aria-label="Color palette"></div>
+        </div>
+      </section>
+
+      <!-- AI Recommendations -->
+      <section id="ai" class="section ai">
+        <div class="container">
+          <div class="section-header">
+            <h2>AI-Powered Recommendations</h2>
+            <p>Choose your room style and explore trending palettes.</p>
+          </div>
+          <div class="ai-controls">
+            <label class="control select">
+              <span>Room style</span>
+              <select id="styleSelect">
+                <option value="modern">Modern</option>
+                <option value="cozy">Cozy</option>
+                <option value="minimalist">Minimalist</option>
+                <option value="industrial">Industrial</option>
+                <option value="bohemian">Bohemian</option>
+                <option value="classic">Classic</option>
+              </select>
+            </label>
+            <button id="recommendBtn" class="btn primary">Get Recommendations</button>
+          </div>
+          <div id="recommendations" class="recommendations"></div>
+        </div>
+      </section>
+
+      <!-- Services -->
+      <section id="services" class="section services">
+        <div class="container">
+          <div class="section-header">
+            <h2>Professional Painting Services</h2>
+            <p>Trusted solutions for homes, offices, and buildings.</p>
+          </div>
+          <div class="services-grid">
+            <div class="service-card">
+              <div class="service-icon">🏠</div>
+              <h3>Interior Painting</h3>
+              <p>Smooth finishes, accent walls, and durable, low-odor paints.</p>
+            </div>
+            <div class="service-card">
+              <div class="service-icon">🏢</div>
+              <h3>Exterior Painting</h3>
+              <p>Weather-resistant coatings and long-lasting protection.</p>
+            </div>
+            <div class="service-card">
+              <div class="service-icon">🌿</div>
+              <h3>Eco-Friendly Options</h3>
+              <p>Low-VOC and eco-certified paints for healthier spaces.</p>
+            </div>
+            <div class="service-card">
+              <div class="service-icon">🎨</div>
+              <h3>Color Consultation</h3>
+              <p>Personalized palettes boosted by AI trends and style.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact -->
+      <section id="contact" class="section contact">
+        <div class="container contact-card">
+          <div class="contact-copy">
+            <h2>Ready to transform your space?</h2>
+            <p>Request a free quote or schedule a consultation with our experts.</p>
+          </div>
+          <div class="contact-actions">
+            <a href="mailto:hello@niceconstructions.example" class="btn primary">Email Us</a>
+            <a href="tel:+1234567890" class="btn secondary">Call +1 (234) 567-890</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="nc-footer">
+      <div class="container footer-inner">
+        <div class="footer-brand">
+          <div class="logo small">NCB</div>
+          <span>Nice Constructions & Building</span>
+        </div>
+        <div class="footer-links">
+          <a href="#services">Services</a>
+          <a href="#ai">AI Colors</a>
+          <a href="#palette">Palette</a>
+          <a href="#upload">Upload</a>
+        </div>
+        <div class="footer-copy">© <span id="year"></span> Nice Constructions & Building. All rights reserved.</div>
+      </div>
+    </footer>
+
+    <!-- OpenCV.js -->
+    <script defer src="https://docs.opencv.org/4.x/opencv.js"></script>
+    <script defer src="app.js"></script>
+  </body>
+</html>
