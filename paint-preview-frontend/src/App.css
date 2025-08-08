@@ -80,6 +80,50 @@ body, .main-bg {
   box-shadow: 0 0 0 2px #1976D233;
 }
 
+.upload-component {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.upload-btn {
+  background: #1976D2;
+  color: #FAFAFA;
+  border: none;
+  border-radius: 8px;
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+  font-family: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+  transition: background 0.2s;
+}
+.upload-btn:disabled {
+  background: #BDBDBD;
+  cursor: not-allowed;
+}
+.upload-btn:hover:not(:disabled) {
+  background: #1565C0;
+}
+
+.upload-error {
+  color: #D32F2F;
+  font-size: 0.95rem;
+  margin-top: 0.5rem;
+}
+
+.uploaded-preview {
+  margin-top: 1rem;
+  max-width: 100%;
+  max-height: 160px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px #1976D233;
+  border: 1.5px solid #E0E0E0;
+  object-fit: contain;
+}
+
 @media (max-width: 900px) {
   .card-grid {
     flex-direction: column;
