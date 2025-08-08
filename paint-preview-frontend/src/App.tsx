@@ -67,6 +67,35 @@ function PhotoUpload({ onUpload }: { onUpload: (filepath: string, preview: strin
 function App() {
   const [uploadedFile, setUploadedFile] = useState<string | null>(null);
   const [previewImg, setPreviewImg] = useState<string | null>(null);
+  const [selectedColor, setSelectedColor] = useState<string | null>(null);
+  const [processing, setProcessing] = useState(false);
+  const [processedImg, setProcessedImg] = useState<string | null>(null);
+  const [processError, setProcessError] = useState<string | null>(null);
+
+  const handleColorSelect = async (color: string) => {
+    setSelectedColor(color);
+    setProcessError(null);
+    if (!uploadedFile) return;
+    setProcessing(true);
+    setProcessedImg(null);
+    try {
+      const res = await fetch(`${BACKEND_URL}/process`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ filepath: uploadedFile, color }),
+      });
+      const data = await res.json();
+      if (data.status === 'success') {
+        setProcessedImg('data:image/jpeg;base64,' + data.image);
+      } else {
+        setProcessError(data.error || 'Processing failed');
+      }
+    } catch (err) {
+      setProcessError('Processing failed');
+    } finally {
+      setProcessing(false);
+    }
+  };
 
   return (
     <div className="main-bg">
@@ -76,20 +105,30 @@ function App() {
       <div className="card-grid">
         <div className="card upload-card">
           <h2>1. Upload Your Space</h2>
-          <PhotoUpload onUpload={(filepath, preview) => { setUploadedFile(filepath); setPreviewImg(preview); }} />
+          <PhotoUpload onUpload={(filepath, preview) => { setUploadedFile(filepath); setPreviewImg(preview); setProcessedImg(null); setSelectedColor(null); }} />
           {previewImg && <img src={previewImg} alt="Uploaded preview" className="uploaded-preview" />}
         </div>
         <div className="card palette-card">
           <h2>2. Choose a Color</h2>
           <div className="palette-grid">
             {COLORS.map(color => (
-              <div key={color} className="color-swatch" style={{ background: color }}></div>
+              <div
+                key={color}
+                className={`color-swatch${selectedColor === color ? ' selected' : ''}`}
+                style={{ background: color }}
+                onClick={() => handleColorSelect(color)}
+              ></div>
             ))}
           </div>
         </div>
         <div className="card preview-card">
           <h2>3. Preview</h2>
-          <div className="preview-placeholder">[Preview Area]</div>
+          {processing && <div className="processing-msg">Processing...</div>}
+          {processError && <div className="process-error">{processError}</div>}
+          <div className="before-after-container">
+            {previewImg && <div className="before-img"><span>Before</span><img src={previewImg} alt="Before" /></div>}
+            {processedImg && <div className="after-img"><span>After</span><img src={processedImg} alt="After" /></div>}
+          </div>
         </div>
       </div>
     </div>
