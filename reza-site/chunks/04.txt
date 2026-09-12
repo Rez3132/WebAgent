@@ -1,0 +1,141 @@
+ <div class="nav-actions">
+        <button class="btn route-link" data-route="contact">Contact</button>
+        <a class="btn primary" href="mailto:reza.hadizadeh94@gmail.com?subject=Free%20Website%20Review">Free website review</a>
+        <button class="menu-toggle" id="menuToggle" aria-label="Open menu">☰</button>
+      </div>
+    </nav>
+  </div>
+</div>
+
+<div class="mobile-drawer" id="mobileDrawer">
+  <div class="drawer-top">
+    <div class="brand"><span class="mark"></span><span>REZA<span style="color:var(--accent)">.</span></span></div>
+    <button class="close-menu" id="closeMenu">×</button>
+  </div>
+  <div class="drawer-links">
+    <button class="drawer-link route-link" data-route="index">Home<small>Start here</small></button>
+    <button class="drawer-link route-link" data-route="website-rescue">Website Rescue<small>Fix an outdated website</small></button>
+    <button class="drawer-link route-link" data-route="case-studies">Case Studies<small>See transformations</small></button>
+    <button class="drawer-link route-link" data-route="services">Services<small>What I can build</small></button>
+    <button class="drawer-link route-link" data-route="ai">AI & Automation<small>Practical AI for business</small></button>
+    <button class="drawer-link route-link" data-route="process">Process<small>How the project works</small></button>
+    <button class="drawer-link route-link" data-route="pricing">Pricing<small>Simple starting packages</small></button>
+    <button class="drawer-link route-link" data-route="about">About<small>My approach</small></button>
+    <button class="drawer-link route-link" data-route="contact">Contact<small>Start a conversation</small></button>
+  </div>
+</div>
+
+<a class="mobile-sticky-cta" href="mailto:reza.hadizadeh94@gmail.com?subject=Free%20Website%20Review">
+  Get a free website review ↗
+</a>
+
+<div class="route-page" data-page="index">
+<main class="wrap">
+  <section class="hero-v2">
+    <div class="hero-copy reveal visible">
+      <div class="eyebrow-live">
+        <span class="live-dot"></span>
+        Your website gets judged before your business does
+      </div>
+
+      <h1 class="home-title">
+        You have about <span class="big-five">5 seconds</span>
+        to make your business feel
+        <span class="gradient">worth choosing.</span>
+      </h1>
+
+      <p class="hero-lead">
+        I redesign outdated websites into premium digital experiences that make people understand you faster,
+        trust you sooner, and feel confident enough to take the next step.
+      </p>
+
+      <div class="hero-actions">
+        <a class="btn primary btn-large" href="mailto:reza.hadizadeh94@gmail.com?subject=Free%20Website%20Review">
+          Get my free website review
+          <span>↗</span>
+        </a>
+        <button class="btn btn-large route-link" data-route="case-studies">
+          See transformations
+          <span>→</span>
+        </button>
+      </div>
+
+      <div class="hero-trust">
+        <span>No obligation</span>
+        <span>Australian small business</span>
+        <span>Websites + practical AI</span>
+      </div>
+    </div>
+
+    <div class="five-second-demo reveal" id="fiveSecondDemo">
+      <div class="demo-top">
+        <span>THE 5-SECOND TEST</span>
+        <div class="countdown"><span id="countNum">5</span>s</div>
+      </div>
+
+      <div class="browser-window">
+        <div class="browser-top">
+          <div class="browser-dots"><i></i><i></i><i></i></div>
+          <div class="url-pill">yourbusiness.com.au</div>
+          <span class="browser-lock">●</span>
+        </div>
+
+        <div class="test-stage">
+          <div class="scan-line"></div>
+
+          <div class="test-site bad-site active" id="badSite">
+            <div class="old-nav">
+              <b>ABC SERVICES</b>
+              <span>HOME &nbsp; ABOUT &nbsp; SERVICES &nbsp; CONTACT</span>
+            </div>
+            <div class="old-content">
+              <div class="old-title">WELCOME TO OUR WEBSITE</div>
+              <p>We provide quality service at affordable prices. Contact us today for more information about what we do.</p>
+              <div class="old-btn">LEARN MORE</div>
+              <div class="old-blocks"><i></i><i></i><i></i></div>
+            </div>
+            <div class="visitor-thought bad-thought">
+              <small>Visitor thinking</small>
+              <strong>“What do they actually do?”</strong>
+            </div>
+          </div>
+
+          <div class="test-site good-site" id="goodSite">
+            <div class="new-nav">
+              <b>NORTHSIDE PAINT CO.</b>
+              <span>Projects &nbsp; Reviews &nbsp; Get a quote</span>
+            </div>
+            <div class="new-content">
+              <div>
+                <small>BRISBANE HOUSE PAINTERS</small>
+                <div class="new-title">Beautiful finish.<br>Zero guesswork.</div>
+                <p>Reliable interior and exterior painting with clear communication from quote to final coat.</p>
+                <div class="new-btn">GET A FREE QUOTE</div>
+              </div>
+              <div class="new-visual">
+                <div class="house-shape"></div>
+              </div>
+            </div>
+            <div class="proof-strip">
+              <span><b>4.9★</b><small>Google rating</small></span>
+              <span><b>Fully insured</b><small>Peace of mind</small></span>
+              <span><b>Brisbane</b><small>Local team</small></span>
+            </div>
+            <div class="visitor-thought good-thought">
+              <small>Visitor thinking</small>
+              <strong>“These people look professional.”</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-switch">
+        <button class="switch-btn active" data-test="bad">Before</button>
+        <div class="switch-track"><div class="switch-knob"></div></div>
+        <button class="switch-btn" data-test="good">After</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<section class="scroll-br
