@@ -1,0 +1,153 @@
+idge reveal">
+  <div class="wrap">
+    <div class="bridge-line"></div>
+    <div class="bridge-copy">
+      <span>SCROLL TO SEE WHAT CHANGES</span>
+      <b>↓</b>
+    </div>
+  </div>
+</section>
+
+<section class="reveal story-section">
+  <div class="wrap">
+    <div class="section-head story-head">
+      <div class="kicker">The hidden problem</div>
+      <h2>A bad website doesn’t just look old. It quietly makes people <span class="gradient">hesitate.</span></h2>
+      <p class="lead">And hesitation is where enquiries disappear.</p>
+    </div>
+
+    <div class="friction-map">
+      <div class="friction-card stage-one tilt">
+        <div class="stage-num">01</div>
+        <div class="stage-icon">👀</div>
+        <h3>They arrive</h3>
+        <p>The first impression forms before they read much at all.</p>
+        <div class="emotion bad-emotion">Uncertain</div>
+      </div>
+
+      <div class="flow-arrow">→</div>
+
+      <div class="friction-card stage-two tilt">
+        <div class="stage-num">02</div>
+        <div class="stage-icon">?</div>
+        <h3>They try to understand</h3>
+        <p>If the message is generic or cluttered, the brain has to work harder.</p>
+        <div class="emotion bad-emotion">Confused</div>
+      </div>
+
+      <div class="flow-arrow">→</div>
+
+      <div class="friction-card stage-three tilt">
+        <div class="stage-num">03</div>
+        <div class="stage-icon">↗</div>
+        <h3>They leave</h3>
+        <p>They do not reject your business. They simply keep looking.</p>
+        <div class="emotion bad-emotion">Gone</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="reveal transformation-section">
+  <div class="wrap">
+    <div class="transformation-intro">
+      <div class="kicker">The transformation</div>
+      <h2>Now imagine the same visitor seeing this instead.</h2>
+    </div>
+
+    <div class="transformation-stage">
+      <div class="transform-copy">
+        <div class="transform-step active" data-transform="0">
+          <span>01</span>
+          <h3>Clarity in the first screen</h3>
+          <p>They immediately understand who you help, what you do, and what to do next.</p>
+        </div>
+        <div class="transform-step" data-transform="1">
+          <span>02</span>
+          <h3>Proof before they need to ask</h3>
+          <p>Reviews, experience, projects and trust signals answer the silent questions in their head.</p>
+        </div>
+        <div class="transform-step" data-transform="2">
+          <span>03</span>
+          <h3>A frictionless next step</h3>
+          <p>Every section gently moves them toward a quote, call, booking or enquiry.</p>
+        </div>
+      </div>
+
+      <div class="transform-visual">
+        <div class="premium-screen tilt">
+          <div class="premium-bar"><i></i><i></i><i></i><span>ridgelinebuild.com.au</span></div>
+          <div class="premium-body">
+            <div class="premium-nav"><b>RIDGELINE</b><span>PROJECTS &nbsp; PROCESS &nbsp; CONTACT</span></div>
+            <div class="premium-hero">
+              <small>BRISBANE RENOVATIONS + BUILDS</small>
+              <h3>Built properly.<br>Managed clearly.</h3>
+              <p>Residential building with transparent communication from first conversation to handover.</p>
+              <div class="premium-cta">DISCUSS YOUR PROJECT</div>
+            </div>
+            <div class="premium-proof">
+              <span><b>Licensed</b><small>Qualified builder</small></span>
+              <span><b>Clear process</b><small>No guesswork</small></span>
+              <span><b>Quality</b><small>Built to last</small></span>
+            </div>
+          </div>
+        </div>
+        <div class="floating-label fl-one">Trust ↑</div>
+        <div class="floating-label fl-two">Clarity ↑</div>
+        <div class="floating-label fl-three">Friction ↓</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="reveal route-section">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">Choose what you need</div>
+      <h2>One business. Different ways I can help.</h2>
+      <p class="lead">You should never have to hunt through the site. Pick the problem that sounds most like yours.</p>
+    </div>
+
+    <div class="choice-grid">
+      <button class="choice-card route-link" data-route="website-rescue">
+        <span class="choice-number">01</span>
+        <div class="choice-icon">↻</div>
+        <h3>My website is outdated</h3>
+        <p>See Website Rescue and how I rebuild weak websites from the ground up.</p>
+        <b>Explore Website Rescue →</b>
+      </button>
+
+      <button class="choice-card route-link" data-route="case-studies">
+        <span class="choice-number">02</span>
+        <div class="choice-icon">◫</div>
+        <h3>I want to see examples</h3>
+        <p>See before-and-after concepts across tradies, NDIS and construction.</p>
+        <b>View transformations →</b>
+      </button>
+
+      <button class="choice-card route-link" data-route="ai">
+        <span class="choice-number">03</span>
+        <div class="choice-icon">✦</div>
+        <h3>I want to use AI</h3>
+        <p>See practical AI systems for enquiries, FAQs and simple automation.</p>
+        <b>Explore AI →</b>
+      </button>
+    </div>
+  </div>
+</section>
+
+<section class="reveal final-home-cta">
+  <div class="wrap">
+    <div class="cta cta-v2">
+      <div>
+        <div class="kicker">Start with something useful</div>
+        <h2>Send me your website. I’ll tell you the first 3 things I would change.</h2>
+        <p class="lead">No sales call required. I’ll show you where trust is leaking and what would make the biggest difference first.</p>
+      </div>
+      <a class="btn primary btn-large" href="mailto:reza.hadizadeh94@gmail.com?subject=Free%20Website%20Review">Get my free review ↗</a>
+    </div>
+  </div>
+</section>
+</div>
+<div class="route-page" data-page="services"><main class="wrap"><section class="hero compact">
+<div><div class="kicker">Services</div><h1>Everything your online
