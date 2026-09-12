@@ -1,5 +1,6 @@
 import asyncio
 import os
+import traceback
 import uuid
 from datetime import datetime, timezone
 from pathlib import Path
@@ -13,7 +14,7 @@ from agent_core import WORKSPACE, run_goal
 from db import execute, fetchall, fetchone, init_db
 
 load_dotenv()
-app = FastAPI(title="Reza Agent", version="0.2.0")
+app = FastAPI(title="Reza Agent", version="0.2.1")
 
 
 def now() -> str:
@@ -36,20 +37,102 @@ async def startup() -> None:
 
 @app.get("/", response_class=HTMLResponse)
 async def home():
-    return """<!doctype html><html><head><meta name='viewport' content='width=device-width,initial-scale=1'><title>Reza Agent</title><style>
-    :root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;background:#0b0d10;color:#f4f5f7;font-family:Inter,system-ui,sans-serif}.wrap{max-width:980px;margin:auto;padding:28px 16px}.top{display:flex;justify-content:space-between;align-items:center;gap:16px}.brand{font-size:28px;font-weight:800}.sub{color:#8d949e;font-size:13px}.card{margin-top:24px;border:1px solid #262b33;border-radius:18px;background:#12151a;padding:18px}.goal{width:100%;min-height:150px;background:transparent;color:white;border:0;outline:0;resize:vertical;font-size:17px;line-height:1.5}.row{display:flex;justify-content:space-between;gap:12px;align-items:center;border-top:1px solid #262b33;padding-top:14px}.btn{border:0;border-radius:11px;background:#e8ff65;color:#111;padding:11px 16px;font-weight:800;cursor:pointer}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}.panel{border:1px solid #262b33;border-radius:16px;background:#111419;min-height:300px;padding:16px}.muted{color:#8d949e}.event{padding:9px 0;border-bottom:1px solid #1d2127}.approval{border:1px solid #5b4930;background:#1a1712;padding:12px;border-radius:12px;margin-top:10px}.approval button{margin-right:8px;padding:8px 10px;border-radius:8px;border:0}.file{display:block;color:#e8ff65;margin-top:7px;text-decoration:none}@media(max-width:760px){.grid{grid-template-columns:1fr}.top{align-items:flex-start;flex-direction:column}}
-    </style></head><body><div class='wrap'><div class='top'><div><div class='brand'>Reza Agent</div><div class='sub'>Research · Build · Review</div></div><div id='health' class='sub'>Checking API…</div></div><div class='card'><textarea id='goal' class='goal' placeholder='Tell Reza Agent what you want done…'></textarea><div class='row'><span class='sub'>The agent can research the web and create project files.</span><button id='run' class='btn'>Run task →</button></div></div><div class='grid'><div class='panel'><h3>Activity</h3><div id='activity' class='muted'>No task running.</div></div><div class='panel'><h3>Result</h3><div id='result' class='muted'>Your result will appear here.</div><div id='approvals'></div><div id='files'></div></div></div></div><script>
-    let task=null,timer=null; const $=s=>document.querySelector(s); const esc=s=>String(s??'').replace(/[&<>\"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[c]));
-    async function health(){try{let r=await fetch('/api/health'),d=await r.json();$('#health').textContent=d.api_key_configured?'API connected':'OpenAI API key needed';}catch{$('#health').textContent='Server unavailable';}}
-    async function run(){let goal=$('#goal').value.trim();if(!goal)return;$('#run').disabled=true;let r=await fetch('/api/tasks',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({goal})});let d=await r.json();task=d.id;$('#run').disabled=false;poll();if(timer)clearInterval(timer);timer=setInterval(poll,1200)}
-    async function poll(){if(!task)return;let r=await fetch('/api/tasks/'+task);if(!r.ok)return;let t=await r.json();$('#activity').className='';$('#activity').innerHTML=t.events.length?t.events.map(e=>`<div class='event'>${esc(e.message)}</div>`).join(''):'Working…';$('#result').className='';$('#result').textContent=t.error?'Error: '+t.error:(t.result||'The agent is working…');$('#approvals').innerHTML=(t.approvals||[]).filter(a=>a.status==='pending').map(a=>`<div class='approval'><b>${esc(a.action)}</b><p>${esc(a.details)}</p><button onclick=decide('${a.id}',true)>Approve</button><button onclick=decide('${a.id}',false)>Reject</button></div>`).join('');$('#files').innerHTML=(t.files||[]).map(f=>`<a class='file' target='_blank' href='/api/tasks/${task}/files/${encodeURI(f)}'>↳ ${esc(f)}</a>`).join('');if(['completed','failed'].includes(t.status)&&timer){clearInterval(timer);timer=null;}}
-    async function decide(id,approved){await fetch('/api/approvals/'+id,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({approved})});poll()} window.decide=decide;$('#run').onclick=run;health();
-    </script></body></html>"""
+    return """<!doctype html>
+<html>
+<head>
+<meta name='viewport' content='width=device-width,initial-scale=1,viewport-fit=cover'>
+<title>Reza Agent</title>
+<style>
+:root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;background:#0b0d10;color:#f4f5f7;font-family:Inter,system-ui,sans-serif;-webkit-tap-highlight-color:transparent}.wrap{max-width:980px;margin:auto;padding:28px 16px 50px}.top{display:flex;justify-content:space-between;align-items:center;gap:16px}.brand{font-size:28px;font-weight:800}.sub{color:#8d949e;font-size:13px}.card{margin-top:24px;border:1px solid #262b33;border-radius:18px;background:#12151a;padding:18px}.goal{width:100%;min-height:150px;background:transparent;color:white;border:0;outline:0;resize:vertical;font-size:17px;line-height:1.5}.row{display:flex;justify-content:space-between;gap:12px;align-items:center;border-top:1px solid #262b33;padding-top:14px}.btn{border:0;border-radius:12px;background:#e8ff65;color:#111;padding:13px 18px;min-height:48px;font-weight:800;font-size:15px;cursor:pointer;touch-action:manipulation;-webkit-user-select:none;user-select:none}.btn:disabled{opacity:.55;cursor:not-allowed}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}.panel{border:1px solid #262b33;border-radius:16px;background:#111419;min-height:300px;padding:16px}.muted{color:#8d949e}.event{padding:9px 0;border-bottom:1px solid #1d2127}.approval{border:1px solid #5b4930;background:#1a1712;padding:12px;border-radius:12px;margin-top:10px}.approval button{margin-right:8px;padding:10px 12px;min-height:44px;border-radius:8px;border:0}.file{display:block;color:#e8ff65;margin-top:7px;text-decoration:none}.notice{margin-top:12px;font-size:14px;min-height:20px}.ok{color:#b9e86a}.err{color:#ff8e8e}.working{color:#f0d77a}@media(max-width:760px){.grid{grid-template-columns:1fr}.top{align-items:flex-start;flex-direction:column}.row{align-items:stretch;flex-direction:column}.btn{width:100%;font-size:16px;min-height:54px}.goal{min-height:190px}.wrap{padding-top:20px}}
+</style>
+</head>
+<body>
+<div class='wrap'>
+  <div class='top'>
+    <div><div class='brand'>Reza Agent</div><div class='sub'>Research · Build · Review</div></div>
+    <div id='health' class='sub'>Checking API…</div>
+  </div>
+  <div class='card'>
+    <textarea id='goal' class='goal' placeholder='Tell Reza Agent what you want done…'></textarea>
+    <div class='row'>
+      <span class='sub'>The agent can research the web and create project files.</span>
+      <button id='run' type='button' class='btn'>Run task →</button>
+    </div>
+    <div id='notice' class='notice muted'>Type a goal, then tap Run task.</div>
+  </div>
+  <div class='grid'>
+    <div class='panel'><h3>Activity</h3><div id='activity' class='muted'>No task running.</div></div>
+    <div class='panel'><h3>Result</h3><div id='result' class='muted'>Your result will appear here.</div><div id='approvals'></div><div id='files'></div></div>
+  </div>
+</div>
+<script>
+let task=null,timer=null;
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>\"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#39;'}[c]));
+function notice(text,kind='muted'){const n=$('#notice');n.textContent=text;n.className='notice '+kind;}
+async function health(){
+  try{
+    const r=await fetch('/api/health',{cache:'no-store'});
+    const d=await r.json();
+    $('#health').textContent=d.api_key_configured?'API connected':'OpenAI API key needed';
+    $('#health').className='sub '+(d.api_key_configured?'ok':'err');
+  }catch(e){$('#health').textContent='Server unavailable';$('#health').className='sub err';}
+}
+async function runTask(){
+  const goal=$('#goal').value.trim();
+  if(goal.length<3){notice('Type what you want the agent to do first.','err');$('#goal').focus();return;}
+  const btn=$('#run');
+  btn.disabled=true;btn.textContent='Starting…';notice('Starting your task…','working');
+  $('#activity').className='';$('#activity').textContent='Starting…';
+  try{
+    const r=await fetch('/api/tasks',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({goal})});
+    let d={};
+    try{d=await r.json();}catch{}
+    if(!r.ok)throw new Error(d.detail||('Server returned '+r.status));
+    if(!d.id)throw new Error('The server did not return a task ID.');
+    task=d.id;
+    notice('Task started. Reza Agent is working…','ok');
+    await poll();
+    if(timer)clearInterval(timer);
+    timer=setInterval(poll,1200);
+  }catch(e){
+    notice('Could not start task: '+e.message,'err');
+    $('#result').className='err';$('#result').textContent='Error: '+e.message;
+  }finally{
+    btn.disabled=false;btn.textContent='Run task →';
+  }
+}
+async function poll(){
+  if(!task)return;
+  try{
+    const r=await fetch('/api/tasks/'+task,{cache:'no-store'});
+    if(!r.ok)throw new Error('Could not load task status.');
+    const t=await r.json();
+    $('#activity').className='';
+    $('#activity').innerHTML=t.events.length?t.events.map(e=>`<div class='event'>${esc(e.message)}</div>`).join(''):'Working…';
+    $('#result').className=t.error?'err':'';
+    $('#result').textContent=t.error?'Error: '+t.error:(t.result||'The agent is working…');
+    $('#approvals').innerHTML=(t.approvals||[]).filter(a=>a.status==='pending').map(a=>`<div class='approval'><b>${esc(a.action)}</b><p>${esc(a.details)}</p><button onclick="decide('${a.id}',true)">Approve</button><button onclick="decide('${a.id}',false)">Reject</button></div>`).join('');
+    $('#files').innerHTML=(t.files||[]).map(f=>`<a class='file' target='_blank' href='/api/tasks/${task}/files/${encodeURI(f)}'>↳ ${esc(f)}</a>`).join('');
+    if(t.status==='completed'){notice('Task completed.','ok');if(timer){clearInterval(timer);timer=null;}}
+    else if(t.status==='failed'){notice('Task failed. The exact error is shown in Result.','err');if(timer){clearInterval(timer);timer=null;}}
+    else if(t.status==='awaiting_approval'){notice('Your approval is needed before the agent can continue.','working');}
+    else{notice('Status: '+t.status,'working');}
+  }catch(e){notice(e.message,'err');}
+}
+async function decide(id,approved){await fetch('/api/approvals/'+id,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({approved})});poll();}
+window.decide=decide;
+$('#run').addEventListener('click',runTask);
+$('#run').addEventListener('touchend',e=>{e.preventDefault();runTask();},{passive:false});
+health();
+</script>
+</body>
+</html>"""
 
 
 @app.get("/api/health")
 async def health():
-    return {"ok": True, "version": "0.2.0", "api_key_configured": bool(os.getenv("OPENAI_API_KEY"))}
+    return {"ok": True, "version": "0.2.1", "api_key_configured": bool(os.getenv("OPENAI_API_KEY"))}
 
 
 @app.get("/api/tasks")
@@ -76,7 +159,9 @@ async def process_task(task_id: str, goal: str) -> None:
         status = "awaiting_approval" if pending else "completed"
         execute("UPDATE tasks SET status=?, result=?, updated_at=? WHERE id=?", (status, result, now(), task_id))
     except Exception as exc:
-        execute("UPDATE tasks SET status=?, error=?, updated_at=? WHERE id=?", ("failed", str(exc), now(), task_id))
+        print(f"TASK_ERROR {task_id}: {type(exc).__name__}: {exc}", flush=True)
+        traceback.print_exc()
+        execute("UPDATE tasks SET status=?, error=?, updated_at=? WHERE id=?", ("failed", f"{type(exc).__name__}: {exc}", now(), task_id))
 
 
 @app.get("/api/tasks/{task_id}")
