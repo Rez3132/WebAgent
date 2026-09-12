@@ -1,0 +1,47 @@
+/div>
+</div>
+</div></section>
+
+<section><div class="wrap">
+<div class="case">
+<div><div class="kicker">NDIS transformation</div><h2>Make the website feel safe before someone makes contact.</h2><p class="lead">Warm tone, calmer visuals, plain language and an easier path to understand the support options.</p></div>
+<div class="case-screen"><div class="screen old"><div class="screenbar"></div><div class="screenbody"><h4>NDIS SERVICES</h4><p>Registered provider. Contact us for support.</p></div></div><div class="screen new"><div class="screenbar"></div><div class="screenbody"><small>SUPPORT, WITH HEART</small><h4>Support that feels human.</h4><p>Clearer language, softer design and a more reassuring customer journey.</p></div></div></div>
+</div>
+</div></section></div>
+<div class="route-page" data-page="process"><main class="wrap"><section class="hero compact">
+<div><div class="kicker">Process</div><h1>From “this website is holding us back” to <span class="gradient">something we are proud to send people to.</span></h1><p class="lead">A simple process designed to move quickly without making the work feel rushed.</p></div>
+<div class="visual"><div class="panel a"><h3>Audit</h3><p>Find the friction.</p></div><div class="panel b"><h3>Direction</h3><p>Define the story.</p></div><div class="panel c"><h3>Launch</h3><p>Build the stronger version.</p></div></div>
+</section></main>
+<section><div class="wrap"><div class="steps">
+<div class="step"><span>01</span><b>Audit</b><p>Review current website, competitors, mobile flow, message and conversion points.</p></div>
+<div class="step"><span>02</span><b>Strategy</b><p>Define who the site is for, the promise, hierarchy and story structure.</p></div>
+<div class="step"><span>03</span><b>Design</b><p>Create the visual experience, motion and premium presentation.</p></div>
+<div class="step"><span>04</span><b>Build & Launch</b><p>Build, optimise, connect enquiries and launch the final site.</p></div>
+</div></div></section></div>
+<div class="route-page" data-page="pricing"><main class="wrap"><section class="hero compact"><div>
+<div class="kicker">Pricing</div><h1>Start lean. Upgrade when the business <span class="gradient">needs more.</span></h1><p class="lead">Simple launch pricing for businesses that want to improve quickly without a huge agency commitment.</p>
+</div></section></main>
+<section><div class="wrap"><div class="pricing">
+<div class="price"><h3>Starter</h3><div class="money">$299</div><p class="muted">One-page website</p><ul class="clean"><li>Mobile-first</li><li>Copy cleanup</li><li>Strong CTA</li><li>Basic SEO</li></ul><a class="btn" style="width:100%" href="contact.html">Choose Starter</a></div>
+<div class="price featured"><div class="badge">Most popular</div><h3>Business</h3><div class="money">$599</div><p class="muted">Up to 5 pages</p><ul class="clean"><li>Custom redesign</li><li>Story-driven structure</li><li>Trust sections</li><li>Local SEO</li></ul><a class="btn primary" style="width:100%" href="contact.html">Choose Business</a></div>
+<div class="price"><h3>AI Business</h3><div class="money">$899</div><p class="muted">Website + practical AI</p><ul class="clean"><li>Everything in Business</li><li>AI enquiry assistant</li><li>Lead capture</li><li>FAQ workflow</li></ul><a class="btn" style="width:100%" href="contact.html">Choose AI Business</a></div>
+</div></div></section></div>
+<div class="route-page" data-page="about"><main class="wrap"><section class="hero compact">
+<div><div class="kicker">About</div><h1>I care about the part most agencies forget: <span class="gradient">how the customer feels.</span></h1><p class="lead">A website can be technically perfect and still fail if it feels generic, confusing or disconnected from the business. My approach combines business thinking, marketing, design and practical AI.</p></div>
+<div class="card"><div class="quote">“The goal is not to impress people with design. The goal is to use design to make the business easier to understand, trust and choose.”</div></div>
+</section></main>
+<section><div class="wrap"><div class="grid2">
+<div class="card"><h3>Business first</h3><p>I think about what the business actually needs: more trust, better positioning, stronger enquiries, clearer offers.</p></div>
+<div class="card"><h3>Design with purpose</h3><p>Motion, 3D, visuals and luxury styling are useful only when they help the story and the perceived value.</p></div>
+<div class="card"><h3>AI without the hype</h3><p>AI should remove friction and repetitive work, not become another complicated system to manage.</p></div>
+<div class="card"><h3>Built for small business</h3><p>The work is designed to be practical enough for a real business to use, not just something that looks good in a portfolio.</p></div>
+</div></div></section></div>
+<div class="route-page" data-page="contact"><main class="wrap"><section class="hero compact">
+<div><div class="kicker">Contact</div><h1>Send me your website. I’ll show you what I would <span class="gradient">change first.</span></h1><p class="lead">No pressure. No jargon. Just a clear look at what is hurting trust, what can improve, and what direction I would take.</p></div></section></main>
+<section><div class="wrap"><div class="contact-grid">
+<div class="contact-card"><h3>Free website review</h3><p class="muted">Email your current website and tell me what the business does. I’ll review the first impression, message, mobile experience and enquiry flow.</p><a class="btn primary" href="mailto:reza.hadizadeh94@gmail.com?subject=Free%20Website%20Review">Email Reza</a></div>
+<div class="contact-card"><h3>What to send</h3><ul class="clean"><li>Your website URL</li><li>What your business does</li><li>What feels wrong about the current site</li><li>The type of customers you want more of</li><li>Whether you want website only or website + AI</li></ul></div>
+</div></div></section></div>
+<footer class="footer"><div class="wrap footer-row">
+<span>© 2026 Reza. Websites + AI for small business.</span>
+<
