@@ -12,6 +12,7 @@ from db import execute
 ROOT = Path(__file__).parent.resolve()
 WORKSPACE = ROOT / "workspace"
 ACTIVE_TASK_ID: contextvars.ContextVar[str] = contextvars.ContextVar("active_task_id", default="")
+MODEL = os.getenv("REZA_AGENT_MODEL", "gpt-5.6-luna")
 
 
 def now() -> str:
@@ -83,44 +84,24 @@ def request_approval(action: str, details: str) -> str:
     return f"Approval request {approval_id} created. Stop before performing that action."
 
 
-researcher = Agent(
-    name="Researcher",
-    instructions=(
-        "Research only when it materially improves the task. Use web search for current facts. "
-        "Return concise findings and do not invent evidence."
-    ),
-    tools=[WebSearchTool()],
-)
-
-builder = Agent(
-    name="Builder",
-    instructions=(
-        "Turn goals and research into useful project artifacts. Create complete runnable files when asked. "
-        "Use only the provided workspace tools and do not perform external side effects."
-    ),
-    tools=[write_project_file, read_project_file, list_project_files],
-)
-
-reviewer = Agent(
-    name="Reviewer",
-    instructions=(
-        "Critically check the result against the user's exact goal. Look for missing pieces, broken UX, "
-        "incomplete code, unsupported claims and obvious security issues. Return PASS or NEEDS WORK with fixes."
-    ),
-)
-
-orchestrator = Agent(
+reza_agent = Agent(
     name="Reza Agent",
+    model=MODEL,
+    model_settings={"parallel_tool_calls": True, "verbosity": "low"},
     instructions=(
-        "Take the user's goal and drive it toward a finished result. Use Researcher for current information, "
-        "Builder for actual files, and Reviewer before substantial completion. Keep moving without unnecessary questions. "
-        "Before sending, publishing, spending money, deleting external data or changing accounts, request approval and stop. "
-        "Summarize what was completed and list created files."
+        "You are an efficient autonomous worker. Complete the user's goal rather than merely explaining how. "
+        "Minimize model calls because this account has a strict request limit. Plan internally and batch related tool calls whenever possible. "
+        "Use web search only when current information is genuinely needed. For build requests, create the actual files directly. "
+        "Before finishing, inspect the files you created and self-review them in the same run for missing pieces, broken links, obvious bugs, and security issues. "
+        "Fix clear defects without asking unnecessary questions. "
+        "Before sending, publishing, spending money, deleting external data, or changing accounts, request approval and stop before that action. "
+        "Finish with a concise summary of what was completed and list the files created."
     ),
     tools=[
-        researcher.as_tool(tool_name="research", tool_description="Research current information.", max_turns=8),
-        builder.as_tool(tool_name="build", tool_description="Create and inspect project files.", max_turns=12),
-        reviewer.as_tool(tool_name="review", tool_description="Review work quality.", max_turns=6),
+        WebSearchTool(),
+        write_project_file,
+        read_project_file,
+        list_project_files,
         request_approval,
     ],
 )
@@ -130,7 +111,7 @@ async def run_goal(task_id: str, goal: str) -> str:
     token = ACTIVE_TASK_ID.set(task_id)
     try:
         event("system", "Understanding goal")
-        result = await Runner.run(orchestrator, goal, max_turns=30)
+        result = await Runner.run(reza_agent, goal, max_turns=12)
         event("system", "Run finished")
         return str(result.final_output)
     finally:
