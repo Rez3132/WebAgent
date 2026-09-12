@@ -1,0 +1,90 @@
+span>Brisbane, Australia · reza.hadizadeh94@gmail.com</span>
+</div></footer>
+<script>
+document.querySelectorAll('.reveal').forEach(el=>{
+  const o=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})
+  },{threshold:.10});
+  o.observe(el);
+});
+
+const pages=[...document.querySelectorAll('.route-page')];
+const navItems=[...document.querySelectorAll('[data-route]')];
+const drawer=document.getElementById('mobileDrawer');
+const openBtn=document.getElementById('menuToggle');
+const closeBtn=document.getElementById('closeMenu');
+
+function showRoute(route, scroll=true){
+  if(!pages.some(p=>p.dataset.page===route)) route='index';
+  pages.forEach(p=>p.classList.toggle('active',p.dataset.page===route));
+  document.querySelectorAll('.nav-item').forEach(b=>b.classList.toggle('active',b.dataset.route===route));
+  history.replaceState(null,'','#'+route);
+  if(drawer) drawer.classList.remove('open');
+  document.body.style.overflow='';
+  if(scroll) window.scrollTo({top:0,behavior:'smooth'});
+  setTimeout(()=>{
+    document.querySelectorAll('.route-page.active .reveal').forEach(el=>el.classList.add('visible'));
+    initHomeInteractions();
+  },40);
+}
+document.addEventListener('click',e=>{
+  const el=e.target.closest('.route-link');
+  if(!el) return;
+  e.preventDefault();
+  showRoute(el.dataset.route);
+});
+openBtn?.addEventListener('click',()=>{drawer.classList.add('open');document.body.style.overflow='hidden'});
+closeBtn?.addEventListener('click',()=>{drawer.classList.remove('open');document.body.style.overflow=''});
+drawer?.addEventListener('click',e=>{if(e.target===drawer){drawer.classList.remove('open');document.body.style.overflow=''}});
+
+function initHomeInteractions(){
+  const demo=document.getElementById('fiveSecondDemo');
+  if(!demo || demo.dataset.init==='1') return;
+  demo.dataset.init='1';
+  const bad=document.getElementById('badSite');
+  const good=document.getElementById('goodSite');
+  const count=document.getElementById('countNum');
+  const buttons=[...demo.querySelectorAll('.switch-btn')];
+
+  function setState(type){
+    const after=type==='good';
+    bad.classList.toggle('active',!after);
+    good.classList.toggle('active',after);
+    demo.classList.toggle('after',after);
+    buttons.forEach(b=>b.classList.toggle('active',b.dataset.test===type));
+  }
+  buttons.forEach(b=>b.addEventListener('click',()=>setState(b.dataset.test)));
+
+  let n=5;
+  const timer=setInterval(()=>{
+    if(!document.body.contains(demo)){clearInterval(timer);return}
+    n--;
+    if(n<0){n=5;setState(demo.classList.contains('after')?'bad':'good')}
+    if(count) count.textContent=n;
+  },1000);
+
+  const steps=[...document.querySelectorAll('.transform-step')];
+  if(steps.length){
+    let idx=0;
+    setInterval(()=>{
+      if(!document.body.contains(steps[0])) return;
+      steps.forEach((s,i)=>s.classList.toggle('active',i===idx));
+      idx=(idx+1)%steps.length;
+    },2600);
+  }
+}
+
+document.querySelectorAll('.tilt').forEach(card=>{
+  card.addEventListener('mousemove',e=>{
+    if(innerWidth<900)return;
+    const r=card.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+    card.style.transform=`perspective(1000px) rotateY(${x*6}deg) rotateX(${y*-6}deg) translateY(-2px)`;
+  });
+  card.addEventListener('mouseleave',()=>card.style.transform='');
+});
+
+let initial=location.hash.replace('#','')||'index';
+showRoute(initial,false);
+</script>
+</body>
+</html>
