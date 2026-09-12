@@ -1,0 +1,40 @@
+ presence needs to feel <span class="gradient">more valuable.</span></h1><p class="lead">Not a pile of random services. A connected system designed to improve how people see the business and how easily they take action.</p></div>
+<div class="visual"><div class="panel a"><h3>Design</h3><p>Premium visual system, layout and motion.</p></div><div class="panel b"><h3>Message</h3><p>Sharper positioning and clearer value.</p></div><div class="panel c"><h3>Action</h3><p>Better enquiry flow and AI support.</p></div></div>
+</section></main>
+<section><div class="wrap"><div class="grid3">
+<div class="card"><div class="icon"></div><h3>Website redesign</h3><p>Full redesign for businesses that look better in real life than they do online.</p></div>
+<div class="card"><div class="icon"></div><h3>Landing pages</h3><p>Focused pages for offers, campaigns, ads and lead generation.</p></div>
+<div class="card"><div class="icon"></div><h3>Copy + positioning</h3><p>Clearer messaging that explains value without sounding generic.</p></div>
+<div class="card"><div class="icon"></div><h3>Conversion improvement</h3><p>Better calls to action, mobile flow and customer journey.</p></div>
+<div class="card"><div class="icon"></div><h3>AI assistant setup</h3><p>Simple website AI for enquiries, FAQs and lead capture.</p></div>
+<div class="card"><div class="icon"></div><h3>Automation</h3><p>Connect forms and enquiries into simple follow-up systems.</p></div>
+</div></div></section></div>
+<div class="route-page" data-page="website-rescue"><main class="wrap"><section class="hero compact">
+<div><div class="kicker">Website Rescue</div><h1>Your business may be strong. Your website might be making it look <span class="gradient">weaker than it is.</span></h1><p class="lead">Website Rescue is for businesses with an outdated, confusing or low-trust online presence. The goal is to diagnose what is hurting perception, then rebuild the experience properly.</p></div>
+<div class="visual"><div class="panel a"><h3>01. Friction</h3><p>Slow, cluttered, confusing, weak mobile experience.</p></div><div class="panel b"><h3>02. Doubt</h3><p>Visitors hesitate because the business feels less established.</p></div><div class="panel c"><h3>03. Rebuild</h3><p>Clear message, stronger visual identity, easier action.</p></div></div>
+</section></main>
+<section><div class="wrap"><div class="split">
+<div class="card bad"><div class="kicker">Before</div><h3 style="margin-top:14px">What usually goes wrong</h3><ul class="clean"><li>Generic headline</li><li>No visual hierarchy</li><li>Poor mobile layout</li><li>No proof where it matters</li><li>Weak CTA</li><li>Too much text with no story</li></ul></div>
+<div class="card good"><div class="kicker">After</div><h3 style="margin-top:14px">What we build instead</h3><ul class="clean"><li>Clear promise</li><li>Premium presentation</li><li>Mobile-first flow</li><li>Trust signals and proof</li><li>Strong next step</li><li>Story-led page structure</li></ul></div>
+</div></div></section></div>
+<div class="route-page" data-page="ai"><main class="wrap"><section class="hero compact">
+<div><div class="kicker">AI & Automation</div><h1>Use AI where it makes the business <span class="gradient">faster, easier and smarter.</span></h1><p class="lead">Not gimmicks. Practical systems that help capture leads, answer common questions, route enquiries and reduce repetitive work.</p></div>
+<div class="visual"><div class="panel a"><h3>Visitor asks</h3><p>“Do you service my area?”</p></div><div class="panel b"><h3>AI responds</h3><p>Answers from approved business information.</p></div><div class="panel c"><h3>Lead captured</h3><p>Name, phone, service and preferred contact time.</p></div></div>
+</section></main>
+<section><div class="wrap"><div class="grid3">
+<div class="card"><h3>AI enquiry assistant</h3><p>Help visitors get answers without waiting for a callback.</p></div>
+<div class="card"><h3>FAQ automation</h3><p>Turn repetitive questions into a useful guided experience.</p></div>
+<div class="card"><h3>Lead qualification</h3><p>Collect useful information before the business speaks to the customer.</p></div>
+<div class="card"><h3>Follow-up workflows</h3><p>Automatically organise or trigger simple next steps after an enquiry.</p></div>
+<div class="card"><h3>Internal knowledge</h3><p>Help staff find business information faster from approved sources.</p></div>
+<div class="card"><h3>Content assistance</h3><p>Support social, FAQ and website content workflows with AI.</p></div>
+</div></div></section></div>
+<div class="route-page" data-page="case-studies"><main class="wrap"><section class="hero compact">
+<div><div class="kicker">Case Study Concepts</div><h1>See what the <span class="gradient">transformation</span> can feel like.</h1><p class="lead">These are concept examples showing how different industries can be repositioned visually and strategically.</p></div>
+<div class="visual"><div class="panel a"><h3>Painter</h3><p>From generic quote site → trusted local specialist.</p></div><div class="panel b"><h3>NDIS</h3><p>From clinical and confusing → calm, human and clear.</p></div><div class="panel c"><h3>Builder</h3><p>From ordinary brochure → premium project partner.</p></div></div>
+</section></main>
+
+<section><div class="wrap">
+<div class="case">
+<div class="case-screen"><div class="screen old"><div class="screenbar"></div><div class="screenbody"><h4>PAINTING SERVICES</h4><p>We do interior and exterior painting. Call today.</p></div></div><div class="screen new"><div class="screenbar"></div><div class="screenbody"><small>BRISBANE PAINTERS</small><h4>Clean finishes. Less disruption.</h4><p>A clearer promise, stronger trust signals and a better quote journey.</p></div></div></div>
+<div><div class="kicker">Painter transformation</div><h2>Sell reliability, not paint.</h2><p class="lead">The customer is not buying paint on a wall. They are buying trust that the home will be respected, the work will be clean and the job will be finished properly.</p><
